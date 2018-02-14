@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Aux from '../../hoc/Aux';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
+import Modal from '../../components/UI/Modal/Modal';
+import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 
 const INGREDIENT_PRICE = {
   cheese: .5,
@@ -16,7 +18,36 @@ class BurgerBuilder extends Component {
       butter: 0,
       salad: 0
     },
-    price: 4
+    price: 4,
+    allowPurchase: false,
+    purchasing: false
+  }
+
+  orderHandler = () => {
+    // console.log('orderHandler is called');
+    this.setState({ purchasing: true });
+  }
+
+  closeModal = () => {
+    // console.log('Cancel order clicked');
+    this.setState({ purchasing: false });
+  }
+
+  continueOrder = () => {
+    window.alert('Your order has been placed successfully.');
+  }
+
+  updatePurchaseState = (ingredients) => {
+    const sum = Object.keys(ingredients).map(
+      igKey => {
+       return ingredients[igKey]; 
+      }
+    ).reduce((sum, el) => {
+      return sum + el;
+    }, 0);
+    // console.log(sum);
+    this.setState({allowPurchase: sum > 0});
+    // console.log(this.state);
   }
 
   addIngredientHandler = (type) => {
@@ -25,10 +56,10 @@ class BurgerBuilder extends Component {
     const updateCount = oldCount + 1;
 
     /* We will update the state in immutable fashion */
-    const updatesIngredients = {
+    const updatedIngredients = {
       ...this.state.ingredients
     };
-    updatesIngredients[type] = updateCount;
+    updatedIngredients[type] = updateCount;
 
     /* Calculating the new price */
     const oldPrice = this.state.price;
@@ -36,9 +67,11 @@ class BurgerBuilder extends Component {
     const newPrice = oldPrice + updatedPrice;
 
     this.setState({
-      ingredients: updatesIngredients,
+      ingredients: updatedIngredients,
       price: newPrice
     });
+    /* Here we are passing the latest state to the method */
+    this.updatePurchaseState(updatedIngredients);
   }
 
   removeIngredientHandler = (type) => {
@@ -50,10 +83,10 @@ class BurgerBuilder extends Component {
     }
     const updateCount = oldCount - 1;
     /* We will update the state in immutable fashion */
-    const updatesIngredients = {
+    const updatedIngredients = {
       ...this.state.ingredients
     };
-    updatesIngredients[type] = updateCount;
+    updatedIngredients[type] = updateCount;
 
     /* Calculating the new price */
     const oldPrice = this.state.price;
@@ -61,9 +94,10 @@ class BurgerBuilder extends Component {
     const newPrice = oldPrice - updatedPrice;
 
     this.setState({
-      ingredients: updatesIngredients,
+      ingredients: updatedIngredients,
       price: newPrice
     });
+    this.updatePurchaseState(updatedIngredients);
   }
 
   render() {
@@ -77,12 +111,18 @@ class BurgerBuilder extends Component {
 
     return (
       <Aux>
-        <Burger ingredients = {this.state.ingredients} />
+        <Modal show={this.state.purchasing} clicked={this.closeModal}>
+          <OrderSummary ingredients={this.state.ingredients} price={this.state.price} closeModal={this.closeModal} continueOrder={this.continueOrder}/> 
+        </Modal>
+        <Burger ingredients={this.state.ingredients} />
         <BuildControls
-          price = { this.state.price }
-          added = { this.addIngredientHandler }
-          removed = { this.removeIngredientHandler }
-          disabled = { disabledInfo }
+          price={this.state.price}
+          added={this.addIngredientHandler}
+          removed={this.removeIngredientHandler}
+          disabled={disabledInfo}
+          allowPurchase={this.state.allowPurchase}
+          orderClicked={this.orderHandler}
+          showModal={this.state.purchasing}
         />
       </Aux>
     );
