@@ -52,3 +52,50 @@
     background: linear-gradient(#bf3813, #c45e38);
     margin: 2% auto;
 }
+
+.modal {
+  width: 500px;
+  position: fixed;
+  // top: 0;
+  left: 50%;
+  // transform: translate(-50%, -100vh);
+  // opacity: 0;
+  border: 1px solid black;
+  padding: 10px;
+  box-shadow: 0 2px 4px gray;
+  transition: all .5s ease-in-out;
+  background-color: white;
+  z-index: 500;
+}
+
+.open-modal {
+  top: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 1;
+}
+
+.close-modal {
+  top: 0;
+  transform: translate(-50%, -100vh);
+  opacity: 0;
+}
+
+.back-drop {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 100;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.header {
+  width: 100%;
+  height: 56px;
+  display: flex;
+  flex-direction: row;
+  background-color: #bc581e;
+  justify-content: space-between;
+  align-items: center;
+}
