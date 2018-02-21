@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
 import PropTypes from 'prop-types';
+import CSSModules from 'react-css-modules';
+import styles from './BurgerIngredient.scss'
 
 class BurgerIngredient extends Component {
   render() {
@@ -8,19 +10,19 @@ class BurgerIngredient extends Component {
 
     switch (this.props.type) {
       case ('bread-top'):
-        ingredient = <div className="bread-top"></div>;
+        ingredient = <div styleName="bread-top"></div>;
         break;
       case ('cheese'):
-        ingredient = <div className="cheese"></div>;
+        ingredient = <div styleName="cheese"></div>;
         break;
       case ('salad'):
-        ingredient = <div className="salad"></div>
+        ingredient = <div styleName="salad"></div>
         break;
       case ('butter'):
-        ingredient = <div className="butter"></div>
+        ingredient = <div styleName="butter"></div>
         break;
       case ('bread-bottom'):
-        ingredient = <div className="bread-bottom"></div>
+        ingredient = <div styleName="bread-bottom"></div>
         break;
       default:
         ingredient = null;
@@ -34,4 +36,6 @@ BurgerIngredient.propTypes = {
   type: PropTypes.string.isRequired
 };
 
-export default BurgerIngredient;
+export default CSSModules(BurgerIngredient, styles, {
+  allowMultiple: true
+});

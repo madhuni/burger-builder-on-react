@@ -2,6 +2,9 @@ import React from 'react';
 
 import BurgerIngredient from './BurgerIngredients/BurgerIngredient';
 
+import CSSModules from 'react-css-modules';
+import styles from './Burger.scss';
+
 const burger = (props) => {
   let transformedIngredients = Object.keys(props.ingredients)
     .map(igKey => {
@@ -18,10 +21,10 @@ const burger = (props) => {
     transformedIngredients = <p className='msg'>Please start adding ingredients!</p>
   }
 
-  // console.log(transformedIngredients);
+  // console.log(styles);
 
   return (
-    <div className="burger">
+    <div styleName="burger u-text-center">
       <BurgerIngredient type='bread-top' />
       { transformedIngredients }
       <BurgerIngredient type='bread-bottom' />
@@ -29,4 +32,6 @@ const burger = (props) => {
   );
 }
 
-export default burger;
+export default CSSModules(burger, styles, {
+  allowMultiple: true
+});

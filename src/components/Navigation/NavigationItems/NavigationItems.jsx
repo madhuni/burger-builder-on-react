@@ -1,6 +1,9 @@
 import React from "react";
 import NavigationItem from "./NavigationItem/NavigationItem";
 
+import CSSModules from 'react-css-modules';
+import styles from './NavigationItems.scss'
+
 const navigationItems = (props) => (
   <ul className="nav-list">
     <NavigationItem link="/" active={true}>Burger builder</NavigationItem>
@@ -8,4 +11,6 @@ const navigationItems = (props) => (
   </ul>
 );
 
-export default navigationItems;
+export default CSSModules(navigationItems, styles, {
+  allowMultiple: true
+});
