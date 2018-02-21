@@ -18,13 +18,11 @@ const burger = (props) => {
     }, []);
 
   if (transformedIngredients.length === 0) {
-    transformedIngredients = <p className='msg'>Please start adding ingredients!</p>
+    transformedIngredients = <p styleName="u-text-center">Please start adding ingredients!</p>
   }
 
-  // console.log(styles);
-
   return (
-    <div styleName="burger u-text-center">
+    <div styleName="burger">
       <BurgerIngredient type='bread-top' />
       { transformedIngredients }
       <BurgerIngredient type='bread-bottom' />
