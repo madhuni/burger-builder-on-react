@@ -1,0 +1,34 @@
+/* Mixin for clearfix */
+@mixin clearfix {
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+/* Mixin for Flex Box */
+@mixin flex-box-row {
+  display: flex;
+  flex-direction: row;
+}
+
+@mixin flex-box-col {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Mixin for centering the box */
+@mixin center-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Mixins for media queries */
+@mixin at-medium {
+  @media screen and (min-width: 500px) {
+    @content;
+  }
+}

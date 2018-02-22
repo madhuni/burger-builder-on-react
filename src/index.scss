@@ -1,0 +1,84 @@
+/* Resetting the browser properties (without Normalize.css) */
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit; /* Inheriting the 'box-sizing' property where it is defined (in body) */
+}
+
+/* Declaring the root font-size first */
+html {
+  font-size: 62.5%;
+}
+
+body {
+  /* Defining the box-sizing in the body element and then inheritig this is '*' selector */
+  box-sizing: border-box;
+  
+  /* Font releated resets will always go in the 'body' */
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: $default-font-size;
+  line-height: 1.7; /* Means line-height is the 1.7 times of pre-defined line-height */
+  color: #777;
+}
+
+/**
+ * CSS GRIDS for the Project
+ */
+
+/* Adding styles for the Custrom Grids for our project */
+.row {
+  max-width: $grid-width;
+  margin: 0 auto;
+  /* Removing the backgroudn color from each row */
+  // background: rgb(211, 211, 211);
+  @include clearfix;
+
+  /* Setting the margin-bottom to every row except the last row element */
+  &:not(:last-child) {
+    margin-bottom: $gutter-vertical;
+  }
+
+  /* Using the attribute selector to assign styles to each column */
+  [class^="col-"] {
+    float: left;
+    /* Commenting the properties for testing purposes */
+    // background: orange;
+    // color: $color-black;
+    // text-align: center;
+
+    &:not(:last-child) {
+      margin-right: $gutter-horizontal;
+    }
+  }
+
+  .col-1-of-2 {
+    width: calc((100% - #{$gutter-horizontal}) / 2);
+  }
+
+  .col-1-of-3 {
+    width: calc((100% - 2 * #{$gutter-horizontal}) / 3);
+  }
+
+  .col-2-of-3 {
+    width: calc(2 * ((100% - 2 * #{$gutter-horizontal}) / 3) + #{$gutter-horizontal});
+  }
+
+  .col-1-of-4 {
+    width: calc((100% - 3* #{$gutter-horizontal}) / 4);
+  }
+
+  .col-2-of-4 {
+    width: calc(2 * ((100% - 3* #{$gutter-horizontal}) / 4) + #{$gutter-horizontal});
+  }
+
+  .col-2-of-4 {
+    width: calc(2 * ((100% - 3* #{$gutter-horizontal}) / 4) + #{$gutter-horizontal});
+  }
+
+  .col-3-of-4 {
+    width: calc(3 * ((100% - 3* #{$gutter-horizontal}) / 4) + 2 * #{$gutter-horizontal});
+  }
+}
